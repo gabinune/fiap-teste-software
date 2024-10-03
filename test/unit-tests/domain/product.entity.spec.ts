@@ -9,7 +9,7 @@ describe('Product Entity', () => {
 
   it('create - Quando o preço é inválido - Deve lançar um erro', () => {
     expect(() => {
-      Product.create('Product Name', 0); // Preço inválido
+      Product.create('Product Name', 0);
     }).toThrowError('Product price must be greater than zero');
   });
 

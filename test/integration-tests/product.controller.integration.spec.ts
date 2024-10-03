@@ -20,7 +20,7 @@ describe('ProductController (Integration)', () => {
 
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        CqrsModule, // Adiciona o CqrsModule
+        CqrsModule,
         TypeOrmModule.forRoot({
           type: 'postgres',
           host: container.getHost(),
@@ -36,14 +36,14 @@ describe('ProductController (Integration)', () => {
       controllers: [ProductController],
       providers: [
         ProductRepository,
-        CreateProductHandler, // Registrar o handler do comando
-        GetProductsHandler, // Registrar o handler da query
+        CreateProductHandler,
+        GetProductsHandler,
       ],
     }).compile();
 
     app = module.createNestApplication();
     await app.init();
-  }, 30000); // Timeout aumentado para evitar erros de tempo limite
+  }, 30000); 
 
   afterAll(async () => {
     if (app) {
@@ -61,10 +61,10 @@ describe('ProductController (Integration)', () => {
       .post('/products')
       .send({ name: 'Produto Teste', price: 150 });
 
-    logger.debug('Resposta recebida:', response.body); // Adicionando log da resposta
+    logger.debug('Resposta recebida:', response.body); 
 
     expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('name'); // Certifica-se de que o corpo contém 'name'
+    expect(response.body).toHaveProperty('name');
     expect(response.body.name).toBe('Produto Teste');
     expect(response.body).toHaveProperty('price');
     expect(response.body.price).toBe(150);
@@ -73,7 +73,7 @@ describe('ProductController (Integration)', () => {
   it('GET /products - Quando solicitado - Deve retornar uma lista de produtos', async () => {
     const response = await request(app.getHttpServer()).get('/products');
 
-    logger.debug('Produtos retornados:', response.body); // Adicionando log da resposta
+    logger.debug('Produtos retornados:', response.body); 
 
     expect(response.status).toBe(200);
     expect(Array.isArray(response.body)).toBe(true);

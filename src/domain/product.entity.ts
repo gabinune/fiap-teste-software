@@ -3,21 +3,20 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity('products')
 export class Product {
   @PrimaryGeneratedColumn('uuid')
-  public id: string;  // O campo `id` agora é público para ser acessível
-
+  public id: string;  
   @Column()
   private name: string;
 
   @Column('decimal')
   private price: number;
 
-  // Construtor privado para garantir que a entidade seja criada corretamente
+ 
   private constructor(name: string, price: number) {
     this.name = name;
     this.setPrice(price);
   }
 
-  // Fábrica para criar uma nova instância de Produto
+  
   static create(name: string, price: number): Product {
     if (!name || name.length === 0) {
       throw new Error('Product name cannot be empty');
@@ -30,13 +29,13 @@ export class Product {
     return new Product(name, price);
   }
 
-  // Método para atualizar o produto
+  
   public update(name?: string, price?: number): void {
     if (name && name.length === 0) {
       throw new Error('Product name cannot be empty');
     }
     if (price !== undefined) {
-      this.setPrice(price);  // Certifique-se de que `setPrice` é chamado corretamente
+      this.setPrice(price); 
     }
     if (name) this.name = name;
   }

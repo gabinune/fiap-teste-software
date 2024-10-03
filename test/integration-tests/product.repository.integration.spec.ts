@@ -49,8 +49,7 @@ describe('ProductRepository Integration', () => {
 
     productRepository = module.get<ProductRepository>(ProductRepository);
     repository = module.get<Repository<Product>>(getRepositoryToken(Product));
-  }, 30000); // Timeout aumentado para 30 segundos
-
+  }, 30000); 
   afterAll(async () => {
     if (dataSource) {
       await dataSource.destroy();
@@ -68,6 +67,6 @@ describe('ProductRepository Integration', () => {
   
     expect(savedProduct).toBeDefined();
     expect(savedProduct.getName()).toBe('Produto Teste');
-    expect(Number(savedProduct.getPrice())).toBe(100); // Conversão do valor
+    expect(Number(savedProduct.getPrice())).toBe(100);
   });
 });
