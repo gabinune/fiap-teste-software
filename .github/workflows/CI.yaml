@@ -1,0 +1,34 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    # Certifica que o Docker está disponível para os Testcontainers
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+
+    # Instala as dependências
+    - name: Install dependencies
+      run: npm install
+
+    # Habilita permissões de acesso ao Docker
+    - name: Enable Docker
+      run: |
+        sudo chmod 666 /var/run/docker.sock
+        docker info
+
+    # Executa os testes com Jest (incluindo os testes que usam Testcontainers)
+    - name: Run tests
+      run: npm run test
