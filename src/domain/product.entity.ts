@@ -19,7 +19,7 @@ export class Product {
 
   // Fábrica para criar uma nova instância de Produto
   static create(name: string, price: number): Product {
-    if (!name || name.length === 0) {
+    if (!name || name.length < 0) {
       throw new Error('Product name cannot be empty');
     }
 
