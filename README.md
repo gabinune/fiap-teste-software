@@ -117,39 +117,7 @@ Utilizamos o **GitHub Actions** para executar testes automatizados a cada novo P
 
 ### Arquivo `.github/workflows/github-actions.yml`:
 ```yaml
-name: Teste e Validação de Código
 
-on:
-  pull_request:
-    branches:
-      - main
-      - develop
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    services:
-      docker:
-        image: docker:20.10.7-dind
-        options: --privileged
-        ports:
-          - 5432:5432
-
-    steps:
-      - name: Checar código do repositório
-        uses: actions/checkout@v2
-
-      - name: Instalar Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: Instalar dependências
-        run: npm install
-
-      - name: Rodar testes
-        run: npm run test
 ```
 
 ### Como Funciona:
